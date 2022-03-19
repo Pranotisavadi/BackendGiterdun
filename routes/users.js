@@ -34,10 +34,11 @@ router.post("/newList", async (req, res, next) => {
   }
 });
 
-router.post("/newTask", async (req, res, next) => {
+router.post("/newTask/", async (req, res, next) => {
   const token = req.cookies["token"];
   const decoded = jwt.verify(token, process.env.SECRET_KEY);
   var tokenUserId = decoded.userId;
+<<<<<<< HEAD
   
   const { listTilte, newTaskText } = req.body;
 
@@ -45,6 +46,17 @@ router.post("/newTask", async (req, res, next) => {
     { userId: tokenUserId,
     listTitle: listTilte},
     { $addToSet: { tasks: newTaskText } },
+=======
+
+  const { newTaskText, singleTitleName } = req.body;
+
+  await List.findOneAndUpdate(
+    {
+      userId: tokenUserId,
+      listTitle: singleTitleName,
+    },
+    { $addToSet: { tasks: newTaskText } }
+>>>>>>> 11dcafaf33688a561d5776f351464b4583d92e33
   );
 });
 
@@ -98,4 +110,8 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> 11dcafaf33688a561d5776f351464b4583d92e33
